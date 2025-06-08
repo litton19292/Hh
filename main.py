@@ -15,6 +15,9 @@ def stream_to_youtube():
         if not os.path.exists('n.jpg'):
             print("Error: n.jpg not found!")
             return
+        if not os.path.exists('audio1.mp3'):
+            print("Error: audio1.mp3 not found!")
+            return
 
         stop_streaming()
 
@@ -24,8 +27,8 @@ def stream_to_youtube():
             '-loop', '1',
             '-framerate', '1',
             '-i', 'n.jpg',
-            '-f', 'lavfi',
-            '-i', 'anullsrc=channel_layout=stereo:sample_rate=44100',
+            '-stream_loop', '-1',           # 🔁 Loop audio forever
+            '-i', 'audio1.mp3',              # 🔊 Use this audio file
             '-c:v', 'libx264',
             '-preset', 'veryfast',
             '-b:v', '2500k',
